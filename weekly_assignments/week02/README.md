@@ -1,3 +1,5 @@
+
+#step 1
 <!--  
 step1: download lweek02 folder
 step2: thorugh the terminal cd into lab01
