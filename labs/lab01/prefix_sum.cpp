@@ -2,17 +2,6 @@
 
 #include "prefix_sum.h"
 
-// the prefix_sum function was done in class during the lab
-int prefix_sum(int arr[], int length){
-    int sum = 0;
-    for (int i = 0; i < length; i++){
-        sum += arr[i];
-    }
-
-    return sum;
-}
-
-// the actual functions for this lab are below: 
 
 bool value_check(int arr[], int length){
     bool stat = false;
@@ -27,7 +16,7 @@ bool value_check(int arr[], int length){
 bool non_neg_prefix_sum(int arr[], int length){
     //checking if there are values other than -1 or 0 or 1
     bool arr_check = value_check(arr, length);
-    if (arr_check == true){
+    if (arr_check == true || length == 0){
         return false;
     }
 
@@ -42,13 +31,13 @@ bool non_neg_prefix_sum(int arr[], int length){
             break;
         }
     }
-    return negative_found;
+    return !(negative_found);
 }
 
 bool non_pos_prefix_sum(int arr[], int length){
     //checking if there are values other than -1 or 0 or 1
     bool arr_check = value_check(arr, length);
-    if (arr_check == true){
+    if (arr_check == true || length == 0){
         return false;
     }
 
@@ -63,5 +52,5 @@ bool non_pos_prefix_sum(int arr[], int length){
             break;
         }
     }
-    return positive_found;
+    return !(positive_found);
 }
