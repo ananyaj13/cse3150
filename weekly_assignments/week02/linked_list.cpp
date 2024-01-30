@@ -58,29 +58,35 @@ update_data_in_linked_list:
 	Returns false if node_to_update > total_elements
 	Returns true otherwise
 */
-bool update_data_in_linked_list(struct node * start, 
-    int node_to_update, 
-    int update_val, 
-    int total_elements) {
+bool update_data_in_linked_list(struct node * start, int node_to_update, int update_val, int total_elements) {
 
-        return true;
+    if (node_to_update <= total_elements){
+        struct node * current = start;
+        while (current != nullptr) {
+            if (current->data == node_to_update) {
+                current->data = update_val;
+                return true;
+            }
+            current = current->next;
+        }
+    } 
+    
+    return false;
+}
 
-    }
-
-bool delete_linked_list(struct node * start){
+void delete_linked_list(struct node * start){
     struct node * current = start;
     struct node * prev;
 
-    bool status = false;
+    // bool status = false;
 
-    while (current != NULL){
+    while (current != nullptr){
         prev = current;
         current = current->next;
         delete prev;
     }
-    if (current == NULL){
-        status = true;
-    }
+    // if (current == NULL){
+    //     status = true;
+    // }
 
-    return status;
 }

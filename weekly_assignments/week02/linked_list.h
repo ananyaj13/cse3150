@@ -23,6 +23,6 @@ bool update_data_in_linked_list(struct node * start,
     int total_elements);
 
 // deleting linked list:
-bool delete_linked_list(struct node * start);
+void delete_linked_list(struct node * start);
 
 #endif
