@@ -42,8 +42,7 @@ TEST_CASE("empty list"){
 
     SUBCASE("deleting the empty linked list without crashing"){
         //if the list deletes without crashing, then this case will pass 
-        delete_linked_list(zero_linked_list);
-        CHECK(true);
+        CHECK_NOTHROW(delete_linked_list(zero_linked_list));
     }
 
 }
@@ -64,8 +63,7 @@ TEST_CASE("one element list"){
 
     SUBCASE("deleting the empty linked list without crashing"){
         //if the list deletes without crashing, then this case will pass 
-        delete_linked_list(linked_list_one_elt);
-        CHECK(true);
+        CHECK_NOTHROW(delete_linked_list(linked_list_one_elt));
     }
 
 }
@@ -92,8 +90,7 @@ TEST_CASE("two element list"){
 
     SUBCASE("deleting the linked list without crashing"){
         //if the list deletes without crashing, then this case will pass 
-        delete_linked_list(linked_list_two_elts);
-        CHECK(true);
+        CHCK_NOTHROW(delete_linked_list(linked_list_two_elts));
     }
 
 }
@@ -129,8 +126,7 @@ TEST_CASE("five element list"){
 
     SUBCASE("deleting the linked list without crashing"){
         //if the list deletes without crashing, then this case will pass 
-        delete_linked_list(linked_list_five_elts);
-        CHECK(true);
+        CHECK_NOTHROW(delete_linked_list(linked_list_five_elts));
     }
 
 }
