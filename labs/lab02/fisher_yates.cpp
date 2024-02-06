@@ -32,7 +32,7 @@ double thousand_instances(int arr[], const int length){
 
     while( i < 5000 && length > 0){
         fisher_yates(arr, length);
-        if (non_neg_prefix_sum(arr, length)){
+        if (non_neg_prefix_sum(arr, length) || non_pos_prefix_sum(arr, length)){
             success++;
         }
         i++;
