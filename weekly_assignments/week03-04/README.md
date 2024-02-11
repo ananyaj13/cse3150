@@ -1,5 +1,5 @@
 #Steps
-1. download lweek02 folder
+1. download week03-04 folder
 2. thorugh the terminal cd into week03-04. 
 3. if you want to check code for stacks, then cd into stack folder
     3a. to compile the test file, enter the command g++ stack_unit_tests.cpp prefix_sum.cpp file_io.cpp pop_stack.cpp stack_1.cpp and then ./a.out into the terminal
