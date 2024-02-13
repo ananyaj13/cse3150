@@ -3,6 +3,7 @@
 #include "doctest.h"
 #include "linked_list.h"
 
+
 TEST_CASE("Testing build_new_linked_list function") {
     SUBCASE("Test with total_new_elements = 0") {
         node *result = build_new_linked_list(0);
@@ -39,7 +40,7 @@ TEST_CASE("Testing get_linked_list_data_item_value function") {
     }
 
     SUBCASE("Test with invalid node number") {
-        int node_number = 10; // Out of range
+        int node_number = 10; 
         int result = get_linked_list_data_item_value(linked_list, node_number, total_elements);
         CHECK(result == -1);
     }
@@ -57,7 +58,7 @@ TEST_CASE("Testing update_data_in_linked_list function") {
         bool result = update_data_in_linked_list(linked_list, node_to_update, update_val, total_elements);
         CHECK(result == true);
 
-        // Verify if the update is successful
+        // verify
         int updated_data = get_linked_list_data_item_value(linked_list, node_to_update, total_elements);
         CHECK(updated_data == update_val);
     }
