@@ -32,47 +32,33 @@ TEST_CASE("Test index_of_lowest_prefix_sum_element - 2") {
     CHECK(index == 4); // Assert that the index of the lowest sum element is 1
 }
 
-TEST_CASE("1 -> Test switch_p1_and_p2_and_drop") {
+TEST_CASE("2 -> Test switch_p1_and_p2_and_drop") {
     // Test if function switches P1 and P2 correctly
-    int arr[] = {1, -1, 1, -1, 1, -1};
-    int* new_arr = switch_p1_and_p2_and_drop(arr, 6, 2); // Example call
+    int arr[] = {1, -1, 1, -1, -1, 1, -1};
+    int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
+    int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Example call
     CHECK(new_arr[0] == 1);
     CHECK(new_arr[1] == -1);
     CHECK(new_arr[2] == 1);
     CHECK(new_arr[3] == -1);
     CHECK(new_arr[4] == 1);
     CHECK(new_arr[5] == -1);
-    CHECK_EQ(non_neg_prefix_sum(new_arr, 6),true);
-    delete[] new_arr; // Don't forget to deallocate memory
-}
-
-TEST_CASE("2 -> Test switch_p1_and_p2_and_drop") {
-    // Test if function switches P1 and P2 correctly
-    int arr[] = {1, -1, 1, -1, -1, 1, -1};
-    int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
-    int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Example call
-    CHECK(new_arr[0] == -1);
-    CHECK(new_arr[1] == 1);
-    CHECK(new_arr[2] == -1);
-    CHECK(new_arr[3] == 1);
-    CHECK(new_arr[4] == -1);
-    CHECK(new_arr[5] == 1);
-    CHECK(new_arr[6] == -1); // The last element should not change
     delete[] new_arr; // Don't forget to deallocate memory
 }
 
 TEST_CASE("3 -> Test switch_p1_and_p2_and_drop") {
     // Test if function switches P1 and P2 correctly
-    int arr[] = {1, -1, -1, -1, 1, -1, 1};
-    int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
-    int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Example call
-    CHECK(new_arr[0] == -1);
+    int arr[] = {1, -1, -1, 1, 1, -1, 1, -1, -1};
+    int index = index_of_lowest_prefix_sum_element(arr, 9); // Index of lowest prefix sum element
+    int* new_arr = switch_p1_and_p2_and_drop(arr, 9, index); // Example call
+    CHECK(new_arr[0] == 1);
     CHECK(new_arr[1] == 1);
     CHECK(new_arr[2] == -1);
     CHECK(new_arr[3] == 1);
-    CHECK(new_arr[4] == 1);
+    CHECK(new_arr[4] == -1);
     CHECK(new_arr[5] == -1);
-    CHECK(new_arr[6] == -1);
+    CHECK(new_arr[6] == 1);
+    CHECK(new_arr[7] == -1);
     delete[] new_arr; // Don't forget to deallocate memory
 }
 
@@ -82,32 +68,29 @@ TEST_CASE("4 -> Test switch_p1_and_p2_and_drop") {
     int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
     int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Example call
     // The expected array after the operation: {-1, 1, -1, 1, -1, 1, -1}
-    CHECK(new_arr[0] == -1);
-    CHECK(new_arr[1] == 1);
-    CHECK(new_arr[2] == -1);
-    CHECK(new_arr[3] == 1);
-    CHECK(new_arr[4] == -1);
-    CHECK(new_arr[5] == 1);
-    CHECK(new_arr[6] == -1);
+    CHECK(new_arr[0] == 1);
+    CHECK(new_arr[1] == -1);
+    CHECK(new_arr[2] == 1);
+    CHECK(new_arr[3] == -1);
+    CHECK(new_arr[4] == 1);
+    CHECK(new_arr[5] == -1);
     delete[] new_arr; // Don't forget to deallocate memory
 }
 
 
-
-
-TEST_CASE("Test switch_p1_and_p2_and_drop_CustomArray") {
+TEST_CASE("5 -> Test switch_p1_and_p2_and_drop") {
     // Test if function switches P1 and P2 correctly for a custom array
     int arr[] = {1, -1, 1, -1, -1, 1, 1}; // Custom array
     int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
     int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Call the function
     // The expected array after the operation: {1, 1, 1, -1, 1, -1}
-    CHECK(new_arr[0] == -1);
+    CHECK(new_arr[0] == 1);
     CHECK(new_arr[1] == 1);
     CHECK(new_arr[2] == 1);
-    CHECK(new_arr[3] == 1);
-    CHECK(new_arr[4] == -1);
-    CHECK(new_arr[5] == 1);
-    CHECK_EQ(non_neg_prefix_sum(new_arr, 6), false); // Check if prefix sum is non-negative
+    CHECK(new_arr[3] == -1);
+    CHECK(new_arr[4] == 1);
+    CHECK(new_arr[5] == -1);
+    CHECK_EQ(non_neg_prefix_sum(new_arr, 6), true); // Check if prefix sum is non-negative
     delete[] new_arr; // Deallocate memory
 }
 
