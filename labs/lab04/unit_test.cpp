@@ -80,7 +80,7 @@ TEST_CASE("4 -> Test switch_p1_and_p2_and_drop") {
 
 TEST_CASE("5 -> Test switch_p1_and_p2_and_drop") {
     // Test if function switches P1 and P2 correctly for a custom array
-    int arr[] = {1, -1, 1, -1, -1, 1, 1}; // Custom array
+    int arr[] = {1, -1, 1, -1, -1, 1, 1}; 
     int index = index_of_lowest_prefix_sum_element(arr, 7); // Index of lowest prefix sum element
     int* new_arr = switch_p1_and_p2_and_drop(arr, 7, index); // Call the function
     // The expected array after the operation: {1, 1, 1, -1, 1, -1}
