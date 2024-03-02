@@ -46,7 +46,6 @@ TEST_CASE("updateD_0") {
     }
 }
 
-// Similar test cases can be added for updateD_1 and updateD_minus_1 functions
 
 TEST_CASE("expensiveDigraphExactPaths") {
     SUBCASE("Small graph") {
