@@ -17,6 +17,8 @@ void updateD_1(vector<vector<int>>& D_minus_1, vector<vector<int>>& D_0, vector<
 void updateD_minus_1(vector<vector<int>>& D_minus_1, vector<vector<int>>& D_0, vector<vector<int>>& D_1, int i, int j, int k) {
     if (((D_minus_1[i][k] + D_0[k][j]) == -1) || ((D_0[i][k] + D_minus_1[k][j]) == -1))
         D_minus_1[i][j] = -1;
+    // cout << (D_minus_1[i][k] + D_0[k][j]) << endl;
+    // cout << ((D_0[i][k] + D_minus_1[k][j]) == -1) << endl;
 }
 
 void expensiveDigraphExactPaths(vector<vector<int>>& D_minus_1, vector<vector<int>>& D_0, vector<vector<int>>& D_1) {
