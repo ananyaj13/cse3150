@@ -13,7 +13,7 @@ int main() {
     vector<double_vector> my_double_vector;
     vector<my_distance> all_pairs;
 
-    my_double_vector = read_from_file("vectors_2D.txt");
+    my_double_vector = read_from_file("vectors_%D.txt");
 
     for (auto vect : my_double_vector) {
         cout << "Vector ID: " << vect.id << ", Values:";
