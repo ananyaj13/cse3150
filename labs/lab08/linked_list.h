@@ -7,88 +7,49 @@
 
 using namespace std;
 
+template <typename T>
+std::ostream & operator<<(std::ostream & os, std::shared_ptr<T> & p) {
+return os << p.get() << " shared_ptr count: [" << p.use_count() << "]" ;
+}
+template <typename T>
+std::ostream & operator<<(std::ostream & os, std::weak_ptr<T> & p) {
+T * raw = nullptr;
+{
+auto sp = p.lock();
+raw = sp.get();
+}
+return os << raw
+ << "weak_ptr to shared_ptr count: [" << p.use_count() << "]" ;
+}
+
 struct LinkedList {
-public:
-    struct Node {
-        int data;
-        shared_ptr<Node> next;
+    public:
+        struct Node {
+            int data;
+            shared_ptr<Node> next;
+            Node() {};
+            Node(Node * node) : data{node->data}, next{node->next} { };
+            Node(int data, shared_ptr<Node> ptr) : data{data}, next{ptr} {};
+        };
+        struct CopyNode {
+            weak_ptr<Node> weak_node_ptr;
+        };
 
-        Node() : data(0), next(nullptr) {}
-        Node(int val) : data(val), next(nullptr) {}
-    };
-
-    struct CopyNode {
-        weak_ptr<Node> weak_node_ptr;
-
-        CopyNode(shared_ptr<Node> ptr) : weak_node_ptr(ptr) {}
-    };
-
-    LinkedList() : root(nullptr), nodeCount(0) {}
-
-    /* Builds the linked list of shared_ptrs */
-    void build_node_list(int k) {
-        if (k <= 0)
-            return;
-
-        root = make_shared<Node>(1);
-        shared_ptr<Node> current = root;
-
-        for (int i = 2; i <= k; ++i) {
-            current->next = make_shared<Node>(i);
-            current = current->next;
-        }
-
-        nodeCount = k;
-    }
-
-    /* Builds weak_ptrs to linked-list nodes */
-    vector<CopyNode> build_copyNodes_weak_ptrs() {
-        vector<CopyNode> copyNodes;
-        shared_ptr<Node> current = root;
-
-        for (int i = 0; i < nodeCount; ++i) {
-            copyNodes.push_back(CopyNode(current));
-            current = current->next;
-        }
-
-        return copyNodes;
-    }
-
-    /* Deletes the linked list of shared_ptrs */
-    void delete_node_shared_ptr_list() {
-        root = nullptr; // All shared_ptrs will be destroyed automatically
-        nodeCount = 0;
-    }
-
-    /* Prints a linked list of shared_ptrs */
-    void print_node_list_shared_ptrs() {
-        shared_ptr<Node> current = root;
-
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
-
-    /* Prints a linked list of weak_ptrs */
-    void print_node_array_weak_ptrs(const vector<CopyNode>& copyNodes) {
-        for (const auto& copyNode : copyNodes) {
-            auto sharedPtr = copyNode.weak_node_ptr.lock();
-            if (sharedPtr)
-                cout << sharedPtr->data << " ";
-            else
-                cout << "nullptr ";
-        }
-        cout << endl;
-    }
-
-    ~LinkedList() {
-        delete_node_shared_ptr_list();
-    }
-
-private:
-    shared_ptr<Node> root;
-    int nodeCount;
+        /* Builds the linked list of shared_ptrs */
+        void build_node_list(int k);
+        /* Builds weak_ptrs to linked-list nodes */
+        CopyNode * build_copyNodes_weak_ptrs();
+        /* Deletes the linked list of shared_ptrs */
+        void delete_node_shared_ptr_list();
+        /* Prints a linked list of shared_ptrs */
+        void print_node_list_shared_ptrs();
+        /* Prints a linked list of weak_ptrs */
+        void print_node_array_weak_ptrs(CopyNode* copyNodes);
+        LinkedList();
+        ~LinkedList();
+    private:
+        shared_ptr<Node> root;
+        int nodeCount;
 };
+
 #endif
