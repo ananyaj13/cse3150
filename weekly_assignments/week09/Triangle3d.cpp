@@ -42,4 +42,22 @@ double Triangle3d::computeArea() {
     double s = (d12 + d13 + d23) / 2.0;
     return sqrt(s * (s - d12) * (s - d13) * (s - d23));
 }
-   
+
+
+// int main() {
+
+//     Point3d p1(0.0, 0.0, 0.0);
+//     Point3d p2(1.0, 2.0, 0.0);
+//     Point3d p3(-1.0, 0.0, 0.0);
+
+//     Triangle3d triangle(p1,p2,p3);
+//     cout << "Triangle: " << triangle << endl;
+//     cout << triangle.pointDistance(p1,p2) << endl;
+//     cout << triangle.pointDistance(p1,p3) << endl;
+//     cout << triangle.pointDistance(p2,p3) << endl;
+//     cout << "That should have been the sqrt(5) = sqrt(1^2 + 2^2)" << endl;
+
+//     cout << triangle.computeArea() << endl;
+
+//     return 0;
+// }
