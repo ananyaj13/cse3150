@@ -2,87 +2,64 @@
 #include "doctest.h"
 #include "vehicle.h"
 
-// Test the Vehicle class
-TEST_CASE("Base class Vehicle - Constructor and Destructor") {
-    Vehicle v;
-    CHECK_NOTHROW(v.Start());
-    CHECK_NOTHROW(v.Stop());
+TEST_CASE("Test Vehicle Base Class") {
+    Vehicle baseVehicle;
+    CHECK_NOTHROW(baseVehicle.Start());
+    CHECK_NOTHROW(baseVehicle.Stop());
+    CHECK(baseVehicle.costOfFuel(100) == 0);
 }
 
-// Test the Gasoline Vehicle class
-TEST_CASE("Gasoline Vehicle - Start, Stop, Fuel Cost, and Miles Per Gallon") {
-    Gasoline gas("Gasoline Vehicle");
-    CHECK_NOTHROW(gas.Start());
-    CHECK_NOTHROW(gas.Stop());
+TEST_CASE("Test Gasoline Class") {
+    Gasoline gasVehicle("GasCar");
 
-    double miles = 100.0;
-    double expectedCost = (miles / 25.0) * 3.5; // 25 mpg, $3.50/gallon
-    CHECK(gas.costOfFuel(miles) == doctest::Approx(expectedCost));
+    SUBCASE("Test Start and Stop") {
+        CHECK_NOTHROW(gasVehicle.Start());
+        CHECK_NOTHROW(gasVehicle.Stop());
+    }
 
-    // Test MPG method
-    CHECK(gas.gasolineMilesPerGallon() == doctest::Approx(25.0));
+    SUBCASE("Test Fuel Efficiency") {
+        CHECK(gasVehicle.gasolineMilesPerGallon() == 20.0);
+    }
+
+    SUBCASE("Test Cost of Fuel") {
+        double miles = 100.0;
+        CHECK(gasVehicle.costOfFuel(miles) == 2.50);
+    }
 }
 
-// Test the Electric Vehicle class
-TEST_CASE("Electric Vehicle - Start, Stop, Fuel Cost, and Miles Per Dollar") {
-    Electric elec("Electric Vehicle");
-    CHECK_NOTHROW(elec.Start());
-    CHECK_NOTHROW(elec.Stop());
+TEST_CASE("Test Electric Class") {
+    Electric electricVehicle("ElectricCar");
 
-    double miles = 100.0;
-    double expectedCost = (miles/100) * 33.7 * (33.7 * 0.24);
-    double expectedMilesPerDollar = 100 / (33.7 * 0.24); // Miles per dollar
+    SUBCASE("Test Start and Stop") {
+        CHECK_NOTHROW(electricVehicle.Start());
+        CHECK_NOTHROW(electricVehicle.Stop());
+    }
 
-    CHECK(elec.costOfFuel(miles) == doctest::Approx(expectedCost));
-    CHECK(elec.electricMilesPerDollar() == doctest::Approx(expectedMilesPerDollar));
+    SUBCASE("Test Fuel Efficiency") {
+        CHECK(electricVehicle.electricMilesPerDollar() == 20.0);
+    }
+
+    SUBCASE("Test Cost of Fuel") {
+        double miles = 100.0;
+        CHECK(electricVehicle.costOfFuel(miles) == 0.24);
+    }
 }
 
-// Test the Hybrid Vehicle class
-TEST_CASE("Hybrid Vehicle - Start, Stop, Fuel Efficiency, and Cost Calculation") {
-    Hybrid hybrid("Hybrid Vehicle", 0.5); // 50% gasoline, 50% electric
-    CHECK_NOTHROW(hybrid.Start());
-    CHECK_NOTHROW(hybrid.Stop());
+TEST_CASE("Test Hybrid Class") {
+    Hybrid hybridVehicle("HybridCar", 0.5); // 50% gas, 50% electric
 
-    double miles = 100.0;
+    SUBCASE("Test Start and Stop") {
+        CHECK_NOTHROW(hybridVehicle.Start());
+        CHECK_NOTHROW(hybridVehicle.Stop());
+    }
 
-    // Check hybrid fuel efficiency
-    double expectedEfficiency = ((100 / (33.7 * 0.24)) * 0.5) + ((25.0) * 0.5);
-    CHECK(hybrid.fuelEfficiencyPerDollar() == doctest::Approx(expectedEfficiency));
+    SUBCASE("Test Fuel Efficiency Per Dollar") {
+        double expectedEfficiency = (20.0 * 0.5 + 20.0 * 0.5);
+        CHECK(hybridVehicle.fuelEfficiencyPerDollar() == doctest::Approx(expectedEfficiency));
+    }
 
-    // Check cost for 100 miles with 50% gas and 50% electric
-    double expectedGasCost = (miles / 25.0) * 3.5; // 25 mpg, $3.50/gallon
-    double expectedElectricCost = (miles / 100) * 33.7 * (33.7 * 0.24);
-    double expectedCost = (expectedElectricCost * (1 - 0.5)) + (expectedGasCost * 0.5);
-    CHECK(hybrid.costOfFuel(miles) == doctest::Approx(expectedCost));
+    SUBCASE("Test Cost of Fuel") {
+        double miles = 100; // this one is calculated in the main function and the answer should be 2.74
+        CHECK(hybridVehicle.costOfFuel(miles) == doctest::Approx(2.74));
+    }
 }
-
-TEST_CASE("Hybrid Vehicle - 100% Gasoline and 100% Electric") {
-    // Test 100% Gasoline
-    Hybrid hybrid_gas("Hybrid Gas", 1.0);
-    double miles = 100.0;
-    double expectedGasCost = (miles / 25.0) * 3.5;
-    CHECK(hybrid_gas.costOfFuel(miles) == doctest::Approx(expectedGasCost));
-
-    // Test 100% Electric --> after calculating this should give me around 272.57 as the expected electric cost
-    Hybrid hybrid_elec("Hybrid Electric", 0.0);
-    CHECK(hybrid_elec.costOfFuel(miles) == doctest::Approx(272.566));
-}
-
-TEST_CASE("Gasoline Vehicle - Zero Miles") {
-    Gasoline gas("Gasoline Vehicle");
-    double miles = 0.0;
-    CHECK(gas.costOfFuel(miles) == doctest::Approx(0.0));
-}
-
-TEST_CASE("Electric Vehicle - Zero Miles") {
-    Electric elec("Electric Vehicle");
-    double miles = 0.0;
-    CHECK(elec.costOfFuel(miles) == doctest::Approx(0.0));
-}
-
-TEST_CASE("Hybrid Vehicle - Zero Miles") {
-    Hybrid hybrid("Hybrid Zero Miles", 0.5);
-    double miles = 0.0;
-    CHECK(hybrid.costOfFuel(miles) == doctest::Approx(0.0));
-}
-

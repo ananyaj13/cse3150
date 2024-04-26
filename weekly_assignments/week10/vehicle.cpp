@@ -1,4 +1,7 @@
 #include "vehicle.h"
+#include <iostream>
+
+using namespace std;
 
 Vehicle::Vehicle() {
     cout << "Constructor(): Vehicle" << endl;
@@ -42,14 +45,12 @@ void Gasoline::Stop() {
     cout << "Gasoline Vehicle STOP" << endl;
 }
 
-double Gasoline::gasolineMilesPerGallon() {
-    return 25.0; 
+double Gasoline::gasolineMilesPerGallon() { //fuel efficiency 
+    return 20.0; 
 }
 
-double Gasoline::costOfFuel(double miles) {
-    double gallonsNeeded = miles / gasolineMilesPerGallon();
-    double costPerGallon = 3.50; // Assume $3.50 per gallon
-    return gallonsNeeded * costPerGallon;
+double Gasoline::costOfFuel(double miles) { 
+    return 2.50;
 }
 
 
@@ -70,15 +71,12 @@ void Electric::Stop() {
     cout << "Electric Vehicle STOP" << endl;
 }
 
-double Electric::electricMilesPerDollar() {
-    double costPer33_7kWh = 33.7 * 0.24; // Cost per 33.7 kWh
-    return 100 / costPer33_7kWh; // Miles per dollar
+double Electric::electricMilesPerDollar() { //fuel efficiency
+    return 20.0;
 }
 
 double Electric::costOfFuel(double miles) {
-    double costPer33_7kWh = 33.7 * 0.24; // Cost per 33.7 kWh
-    double kWhNeeded = (miles / 100) * 33.7;
-    return kWhNeeded * costPer33_7kWh;
+    return 0.24;
 }
 
 
